@@ -1,4 +1,4 @@
-#Multi-armed bandit
+# Multi-armed bandit
 
 This is a game based on the multi-armed bandit problem. At a time, five teams/individuals play for a specific number of rounds. The rules of the game is as follows:
 
