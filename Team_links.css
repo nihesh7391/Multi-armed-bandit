@@ -1,0 +1,143 @@
+* {
+    box-sizing: border-box;
+}
+
+.row{
+    top: 30%;
+    position: absolute;
+    font-size: 40px;
+    color: #5c5c5c;
+}
+
+.column {
+    float: left;
+    width: 20%;
+    padding: 5px;
+    text-align: center;
+    font-family: "montserrat";
+}
+
+/* Clearfix (clear floats) */
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.a{
+    top: 8%;
+    left: 24%;
+    position: absolute;
+    font-family: "montserrat";
+    font-size: 80px; 
+    text-align: center;
+    text-decoration: none;
+    color: #5c5c5c;
+    padding:  20px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+}
+
+
+.a:before{
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    bottom: 2px;
+    width: 50%;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.a span:nth-child(1){
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(to right, #f2f2f2, #5c5c5c);
+    animation: animate1 linear 2s infinite;
+}
+
+.a span:nth-child(1){
+    height: 5px;
+}
+
+@keyframes animate1{
+    0%{
+        transform: translateX(-100%);
+    }
+    100%{
+        transform: translateX(100%);
+    }
+}
+
+.a span:nth-child(2){
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(to bottom, #f2f2f2, #5c5c5c);
+    animation: animate2 linear 2s infinite;
+    animation-delay: 1s;
+}
+
+.a span:nth-child(2){
+    width: 5px;
+}
+
+@keyframes animate2{
+    0%{
+        transform: translateY(-100%);
+    }
+    100%{
+        transform: translateY(100%);
+    }
+}
+
+.a span:nth-child(3){
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(to left, #f2f2f2, #5c5c5c);
+    animation: animate3 linear 2s infinite;
+}
+
+.a span:nth-child(3){
+    height: 5px;
+}
+
+@keyframes animate3{
+    0%{
+        transform: translateX(100%);
+    }
+    100%{
+        transform: translateX(-100%);
+    }
+}
+
+.a span:nth-child(4){
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(to top, #f2f2f2, #5c5c5c);
+    animation: animate4 linear 2s infinite;
+    animation-delay: 1s;
+}
+
+.a span:nth-child(4){
+    width: 5px;
+}
+
+@keyframes animate4{
+    0%{
+        transform: translateY(100%);
+    }
+    100%{
+        transform: translateY(-100%);
+    }
+}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+    <header class="header">Team Water<span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </header>
+    <head>
+        <meta charset="utf-8">
+        <title>Team Water</title>
+        <link rel="stylesheet" href="{{ url_for('static',filename='styles/Water.css') }}">
+    </head>
+    <body>
+        <div class="container">
+            <button value="1" type="button" class="btn btn1">Option 1</button>
+            <button value="2" type="button" class="btn btn2">Option 2</button>
+            <button value="3" type="button" class="btn btn3">Option 3</button>
+            <button value="4" type="button" class="btn btn4">Option 4</button>
+            <button value="5" type="button" class="btn btn5">Option 5</button>
+        </div>
+    </body>
+</html>
+
+<script  src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+<script>
+$("button").click(function() {
+    var value = $(this).val();
+    send_request(value);
+});
+
+function send_request(clicked_id){
+    var msg = "Water: " + clicked_id.toString();
+    var linkname = window.location.pathname;
+    $.ajax({
+        url: linkname,
+        data: {'msg': msg},
+        type: 'POST',
+        success: function(response) {
+            console.log(response);
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    });
+}
+</script>

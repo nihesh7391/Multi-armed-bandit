@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>Scoreboard</title>
+        <link rel="stylesheet" href="{{ url_for('static',filename='styles/Scoreboard.css') }}">
+    </head>
+
+
+    <button class="b" id="start" onclick="start_game()" href="#">
+        Start
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+    
+    <a class="l" id="Rounds" href="#">
+        Round 1
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </a>
+
+    <a class="c" id="Counter" href="#">
+        Time
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </a>
+
+    <a class="a" id="Air" href="#">
+        Team Air
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </a>
+
+    <a class="e" id="Earth" href="#">
+        Team Earth
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </a>
+
+    <a class="f" id="Fire" href="#">
+        Team Fire
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </a>
+
+    <a class="m" id="Metal" href="#">
+        Team Metal
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </a>
+
+    <a class="w" id="Water" href="#">
+        Team Water
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </a>
+
+    <a class="table1" id="table1">
+        Rewards will be updated here!   
+    </a>
+
+    <a class="table2" id="table2">
+        Rewards will be updated here!   
+    </a>
+
+    <a class="table3" id="table3">
+        Rewards will be updated here!   
+    </a>
+
+    <a class="table4" id="table4">
+        Rewards will be updated here!   
+    </a>
+
+    <a class="table5" id="table5">
+        Rewards will be updated here!   
+    </a>
+
+    </body>
+
+</html>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+<script>
+
+function start_timer(timeleft){
+    var downloadTimer = setInterval(function(){
+    document.getElementById("Counter").innerHTML = timeleft + " seconds remaining" + "<span></span><span></span><span></span><span></span>";
+    timeleft -= 1;
+    if(timeleft <= 0){
+        clearInterval(downloadTimer);
+        send_request();
+    }
+    }, 1000);
+}
+
+function update(response){
+    var tmp = response.split(" ");
+    document.getElementById("Rounds").innerHTML = "Game " + tmp[0] +"<span></span><span></span><span></span><span></span>";
+    document.getElementById("Counter").innerHTML = "Time over! <span></span><span></span><span></span><span></span>";
+    document.getElementById("Air").innerHTML = "Team Air: " + tmp[1] +"<span></span><span></span><span></span><span></span>";
+    document.getElementById("Earth").innerHTML = "Team Earth: " + tmp[2] +"<span></span><span></span><span></span><span></span>";
+    document.getElementById("Fire").innerHTML = "Team Fire: " + tmp[3] +"<span></span><span></span><span></span><span></span>";
+    document.getElementById("Metal").innerHTML = "Team Metal: " + tmp[4] +"<span></span><span></span><span></span><span></span>";
+    document.getElementById("Water").innerHTML = "Team Water: " + tmp[5] +"<span></span><span></span><span></span><span></span>";
+}
+
+function send_request(){
+    var msg = "T_over";
+    var linkname = window.location.pathname;
+    $.ajax({
+        url: linkname,
+        data: {'msg': msg},
+        type: 'POST',
+        success: function(response) {
+            var tmp = response.split(" ");
+            if (tmp[0]=='Finished!'){
+                update(response);
+                populate(response);
+                alert('Game Finished!');
+            }
+            else {
+                update(response);
+                populate(response);
+                start_timer(5);
+            }
+            console.log(response);
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    });
+} 
+
+function populate(response){
+    var tmp = response.split(" ");
+    var tmp2 = tmp[6].split("|");
+    
+    for (i = 0; i < 5; i++){
+
+        var tmp3 = tmp2[i].split("$");
+        var filler_0 = tmp3[0].split(":");
+        var filler_1 = tmp3[1].split(":");
+
+        var tab = "<table>";
+
+        tab = tab+"<tr><th class=\"th\">Option:</th>";
+        for (j = 0; j < filler_0.length; j++) {
+            tab = tab+"<td class=\"td"+filler_0[j][0].toString()+"\">"+filler_0[j].toString()+"</td>";
+        }
+        tab = tab+"</tr>";
+
+        tab = tab+"<tr><th class=\"th\">Reward:</th>";
+        for (j = 0; j < filler_1.length; j++) {
+            tab = tab+"<td class=\"td"+filler_0[j][0].toString()+"\">"+filler_1[j].toString()+"</td>";
+        }
+        tab = tab+"</tr>"+"</table>";
+
+        var str = "table"+(i+1).toString();
+        document.getElementById(str).innerHTML = tab;
+    }
+
+}
+
+function start_game() {
+    var msg = "begin_game!";
+    var linkname = window.location.pathname;
+    $.ajax({
+        url: linkname,
+        data: {'msg': msg},
+        type: 'POST',
+        success: function(response) {
+            if (response=='game_started!'){   
+                console.log(response);
+                start_timer(5);
+            }
+            if (response=='game_inprogress!'){  
+                console.log(response);
+            }
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    });
+}
+
+</script>
