@@ -21,3 +21,5 @@ To start a game, use the following steps:
 - Scan QR Code for each team and they'll be directed to the game page.
 - Start the game by clicking 'Start' button in scoreboard page.
 - Have fun!
+
+Note: For this game to work, all the players and the server should be in the same network. This is necessary as the URL contains the IP address and port of the server.
